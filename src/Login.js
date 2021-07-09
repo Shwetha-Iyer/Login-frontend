@@ -16,7 +16,7 @@ export default function Login(){
         //     }
         // }
         // fetchdata();
-        axios.get("http://localhost:3100/api/users/authchecker",{
+        axios.get("https://login-mern.herokuapp.com/api/users/authchecker",{
           headers:{
             'Content-Type': 'application/json'
           },
@@ -84,7 +84,7 @@ export default function Login(){
         //     //setLogfail("Wrong Email or Password!");
         //     console.log("failed");
         //  }
-        axios.post("http://localhost:3100/api/users/login",{email,password},{
+        axios.post("https://login-mern.herokuapp.com/api/users/login",{email,password},{
           headers:{
             'Content-Type': 'application/json'
           },
