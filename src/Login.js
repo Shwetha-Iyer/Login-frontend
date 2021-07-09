@@ -1,20 +1,37 @@
 import {useFormik} from "formik";
 import { useEffect } from "react";
+const axios = require("axios");
 export default function Login(){
     useEffect(()=>{
 
-        async function fetchdata(){
-            let resp = await fetch(`https://login-mern.herokuapp.com/api/users/authchecker`);
-            let data = await resp.json();
-            console.log(data);
-            if(resp.status===200){
-                console.log("user already logged in");
-            }
-            else{
-                console.log("user not logged in");
-            }
-        }
-        fetchdata();
+        // async function fetchdata(){
+        //     let resp = await fetch(`http://localhost:3100/api/users/authchecker`);
+        //     let data = await resp.json();
+        //     console.log(data);
+        //     if(resp.status===200){
+        //         console.log("user already logged in");
+        //     }
+        //     else{
+        //         console.log("user not logged in");
+        //     }
+        // }
+        // fetchdata();
+        axios.get("http://localhost:3100/api/users/authchecker",{
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }).then((res) => {
+          console.log(res);
+          if(res.status===200){
+            console.log("Logged in");
+          }
+          else
+          console.log("not loggedin");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
         
     },[])
@@ -44,28 +61,45 @@ export default function Login(){
           //console.log("Final Values", values);
           let email = values.email;
           let password = values.password;
-          let check = await fetch("https://login-mern.herokuapp.com/api/users/login", {
-            method: "POST",
-            body: JSON.stringify({
-              email,
-              password
-            }),
-            headers: {
-              "Content-type": "application/json",
-            },
-          });
-          if(check.status===200){
-            let data = await check.json();
-            // history.push(`/dashboard/${data.id}`);
-            console.log("login success",data);
-          }
+          // let check = await fetch("http://localhost:3100/api/users/login", {
+          //   method: "POST",
+          //   body: JSON.stringify({
+          //     email,
+          //     password
+          //   }),
+          //   credentials:"same-origin",
+          //   headers: {
+          //     "Content-type": "application/json",
+          //   },
+          // });
+          // if(check.status===200){
+          //   let data = await check.json();
+          //   // history.push(`/dashboard/${data.id}`);
+          //   console.log("login success",data);
+          // }
         //     else if(check.status===400){
         //     //setLogfail("Account not activatd");
         //   }
-         else{
-            //setLogfail("Wrong Email or Password!");
-            console.log("failed");
-         }
+        //  else{
+        //     //setLogfail("Wrong Email or Password!");
+        //     console.log("failed");
+        //  }
+        axios.post("http://localhost:3100/api/users/login",{email,password},{
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }).then((res) => {
+          console.log(res);
+          if(res.status===200){
+            console.log("Logged in success");
+          }
+          else
+          console.log("something went wrong");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
         },
       });
     return <>
