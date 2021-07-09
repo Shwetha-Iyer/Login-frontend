@@ -1,7 +1,9 @@
 import {useFormik} from "formik";
 import { useEffect } from "react";
+import {useHistory} from "react-router-dom"
 const axios = require("axios");
 export default function Login(){
+  let history = useHistory();
     useEffect(()=>{
 
         // async function fetchdata(){
@@ -25,16 +27,19 @@ export default function Login(){
           console.log(res);
           if(res.status===200){
             console.log("Logged in");
+            history.push(`/dashboard/${res.data.sessUser.email}`);
           }
           else
           console.log("not loggedin");
         })
+         
+  
         .catch((error) => {
           console.log(error);
         });
 
         
-    },[])
+    },[history]);
     let formik = useFormik({
         initialValues: {
           email: "",
@@ -93,10 +98,14 @@ export default function Login(){
           console.log(res);
           if(res.status===200){
             console.log("Logged in success");
+            
+            history.push(`/dashboard/${res.data.sessUser.email}`);
           }
           else
           console.log("something went wrong");
         })
+         
+    
         .catch((error) => {
           console.log(error);
         });
