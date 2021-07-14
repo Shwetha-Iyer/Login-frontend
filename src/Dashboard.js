@@ -27,6 +27,9 @@ export default function Dashboard(props){
           console.log(res);
           if(res.status===200){
             console.log("Logged in");
+             axios.get("https://restcountries.eu/rest/v2/all").then(()=>console.log("restcountries")).catch((error)=> {
+                console.log(error);
+             });
             //history.push(`/dashboard/${res.data.sessUser.email}`)
           }
           else{
