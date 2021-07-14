@@ -22,7 +22,8 @@ export default function Login(){
           headers:{
             'Content-Type': 'application/json'
           },
-          withCredentials: true
+          withCredentials: true,
+          crossDomain: true
         }).then((res) => {
           console.log(res);
           if(res.status===200){
@@ -93,7 +94,8 @@ export default function Login(){
           headers:{
             'Content-Type': 'application/json'
           },
-          withCredentials: true
+          withCredentials: true,
+          crossDomain: true
         }).then((res) => {
           console.log(res);
           if(res.status===200){
